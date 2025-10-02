@@ -1,73 +1,221 @@
-# Welcome to your Lovable project
+# NLP Query Engine - AI Engineering Assignment
 
-## Project info
+A full-stack web application that enables natural language querying over structured databases and unstructured documents using semantic search and LLM-powered query processing.
 
-**URL**: https://lovable.dev/projects/6c87daee-6875-4877-b81e-d019e03642f2
+## 🚀 Quick Start
 
-## How can I edit this code?
+### Prerequisites
+- Node.js 18+ and npm
+- A modern web browser
 
-There are several ways of editing your application.
+### Installation
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/6c87daee-6875-4877-b81e-d019e03642f2) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📋 Features
 
-**Use GitHub Codespaces**
+### Core Functionality
+- **Database Connection**: Connect to SQLite/PostgreSQL databases with automatic schema discovery
+- **Document Upload**: Drag-and-drop support for PDF, DOCX, TXT, CSV files
+- **Natural Language Queries**: Ask questions in plain English
+- **Hybrid Search**: Combines SQL queries and document semantic search
+- **Schema Visualization**: Interactive view of database tables and relationships
+- **Performance Metrics**: Real-time query performance and cache statistics
+- **Query History**: Track and replay previous queries
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Backend Services
+- Schema discovery with synonym mapping
+- Document processing with chunking and embeddings
+- Query classification (SQL/document/hybrid)
+- Natural language to SQL conversion
+- Response caching for performance
+- Source attribution for results
 
-## What technologies are used for this project?
+## 🎥 Demo Video
 
-This project is built with:
+[Watch the Loom Demo](https://www.loom.com/share/your-video-link)
+*5-7 minute walkthrough demonstrating all core features*
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 💡 Example Queries
 
-## How can I deploy this project?
+### SQL Queries
+```
+- "Show me all employees with salary greater than 50000"
+- "What's the average order value by customer?"
+- "List top 5 products by revenue"
+- "How many active users do we have?"
+```
 
-Simply open [Lovable](https://lovable.dev/projects/6c87daee-6875-4877-b81e-d019e03642f2) and click on Share -> Publish.
+### Document Queries
+```
+- "What are the key terms in employment contracts?"
+- "Find documents mentioning vacation policy"
+- "Summarize project requirements from uploaded PDFs"
+```
 
-## Can I connect a custom domain to my Lovable project?
+### Hybrid Queries
+```
+- "Show employee records and their contract documents"
+- "Find products and related documentation"
+- "Match customer data with support tickets"
+```
 
-Yes, you can!
+## 🏗️ Architecture
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Frontend (React + TypeScript + Vite)
+```
+src/
+├── components/
+│   ├── DatabaseConnector.tsx    # DB connection & schema discovery
+│   ├── DocumentUploader.tsx     # File upload with progress
+│   ├── QueryInterface.tsx       # NL query input & results
+│   ├── SchemaViewer.tsx         # Schema visualization
+│   └── MetricsDashboard.tsx     # Performance metrics
+├── pages/
+│   └── Index.tsx                # Main application page
+└── index.css                    # Design system & tokens
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### Backend (Lovable Cloud / Supabase Edge Functions)
+```
+supabase/functions/
+├── ingest-database/             # POST /api/ingest/database
+├── ingest-documents/            # POST /api/ingest/documents
+├── check-ingestion-status/      # GET /api/ingest/status/{job_id}
+├── process-query/               # POST /api/query
+├── query-history/               # GET /api/query/history
+└── get-schema/                  # GET /api/schema
+```
+
+## 🔧 API Endpoints
+
+### Ingestion
+- `POST /api/ingest/database` - Connect to database and discover schema
+- `POST /api/ingest/documents` - Upload and process documents
+- `GET /api/ingest/status/{job_id}` - Check processing status
+
+### Querying
+- `POST /api/query` - Execute natural language query
+- `GET /api/query/history` - Retrieve query history
+
+### Schema
+- `GET /api/schema` - Get discovered database schema
+
+## 🎯 Technical Highlights
+
+### Schema Discovery
+- Automatic table and column introspection
+- Foreign key relationship detection
+- Synonym mapping (e.g., salary ↔ compensation)
+- Sample data extraction for context
+
+### Document Processing
+- Multi-format support (PDF, DOCX, TXT, CSV)
+- Dynamic chunking based on document type
+- Semantic embeddings using AI models
+- Metadata indexing for fast retrieval
+
+### Query Engine
+- Query classification (SQL/document/hybrid)
+- Rule-based + LLM natural language to SQL
+- Parameterized query generation (SQL injection safe)
+- Response caching (95%+ hit rate target)
+- Source attribution for all results
+
+### Performance
+- Target: 95% of queries < 2 seconds
+- In-memory caching with LRU eviction
+- Concurrent request handling (10+ users)
+- Batch processing for embeddings
+
+## 🧪 Sample Data
+
+The project includes sample data for testing:
+- Sample SQLite database with HR schema (employees, departments, salaries)
+- Sample documents (employment contracts, policies, reports)
+
+Load sample data:
+```bash
+# Sample data is automatically loaded on first run
+# Or manually reset: (feature to be implemented)
+npm run seed-data
+```
+
+## 📊 Performance Metrics
+
+The dashboard displays:
+- Total queries processed
+- Average response time
+- Cache hit rate
+- Active database connections
+- Indexed documents count
+- Recent query history
+
+## ⚠️ Known Limitations
+
+1. **Database Support**: Currently optimized for SQLite and PostgreSQL schemas
+2. **Document Size**: Maximum file size 20MB per document
+3. **Concurrent Queries**: Designed for up to 10 concurrent users
+4. **Embedding Model**: Uses Lovable AI (Gemini) for embeddings - requires credits
+5. **Schema Complexity**: Best performance with schemas < 100 tables
+6. **Query Complexity**: Complex nested SQL queries may require manual review
+7. **Language Support**: Optimized for English language queries
+
+## 🔐 Security Features
+
+- Parameterized SQL queries prevent injection attacks
+- File type and size validation
+- Input sanitization for all user inputs
+- No raw SQL execution from user input
+- Secure environment variable management
+
+## 🚧 Future Enhancements
+
+- [ ] Support for more database types (MySQL, MongoDB)
+- [ ] Advanced query optimization
+- [ ] Multi-language support
+- [ ] Query suggestions based on schema
+- [ ] Export results to CSV/Excel
+- [ ] Collaborative query sharing
+- [ ] Advanced visualization options
+- [ ] Real-time database updates
+
+## 📝 Development Notes
+
+### Design Philosophy
+- Clean, professional UI avoiding "AI-generated" aesthetics
+- Focus on usability and clear information hierarchy
+- Responsive design for all screen sizes
+- Semantic color tokens for consistent theming
+
+### Code Quality
+- TypeScript for type safety
+- Component-based architecture
+- Reusable UI components (shadcn/ui)
+- Proper error handling and user feedback
+
+## 🤝 Contributing
+
+This is an assignment project. For questions or issues, contact the developer.
+
+## 📄 License
+
+This project is created for educational purposes as part of an AI Engineering assignment.
+
+---
+
+**Built with**: React, TypeScript, Vite, Tailwind CSS, Lovable Cloud, Supabase, Lovable AI
+**Author**: [Your Name]
+**Date**: October 2025
